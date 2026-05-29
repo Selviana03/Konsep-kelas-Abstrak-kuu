@@ -1,86 +1,75 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tugas OOP - Serlin Selviana Giay</title>
-    <style>
-        /* Gaya Visual */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #fff0f5; /* Background Pink Lembut */
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
+import 'dart:math';
 
-        .container { 
-            max-width: 750px; 
-            background: white; 
-            padding: 40px; 
-            border-radius: 25px; 
-            border: 3px solid #ffb6c1; /* Garis tepi pink */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        h1 { color: #800000; text-align: center; margin-bottom: 30px; }
-
-        .header-info { 
-            background: #ffe4e1; 
-            padding: 20px; 
-            border-radius: 15px; 
-            margin-bottom: 30px; 
-            border-left: 8px solid #ffb6c1;
-            color: #5d0000;
-        }
-
-        h2 { 
-            color: #800000; 
-            border-bottom: 2px solid #ffb6c1; 
-            padding-bottom: 10px; 
-            margin-top: 30px;
-        }
-
-        pre { 
-            background-color: #f8f8f8; 
-            padding: 20px; 
-            border-radius: 10px; 
-            border: 1px solid #ddd;
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1>Tugas Pemrograman Berorientasi Objek (OOP)</h1>
-    
-    <div class="header-info">
-        <strong>Nama Lengkap:</strong> Serlin Selviana Giay<br>
-        <strong>NIM:</strong> 251410030<br>
-        <strong>Tugas:</strong> Sesi 4 - Polimorfisme & Abstrak
-    </div>
-
-    <h2>Jawaban Latihan</h2>
-    
-    <p>Berikut adalah implementasi dari 5 poin latihan yang diberikan dalam bahasa Dart:</p>
-
-    <h3>1. Konsep Abstract Class & Polimorfisme</h3>
-    <pre>
+// --- SECTION 1: KONSEP KELAS ABSTRAK ---
 abstract class Pekerja {
   String nama;
   Pekerja(this.nama);
-  void bekerja(); // Abstract method
+  
+  // Abstract method (Logic ditentukan di subclass)
+  void bekerja(); 
+
+  // Non-abstract method
+  void info() => print("$nama adalah seorang pekerja.");
 }
-    </pre>
 
-    <h3>2. Multiple Inheritance (Tablet)</h3>
-    <p>Menggunakan <code>implements</code> untuk menggabungkan perilaku dari berbagai interface.</p>
+// --- SECTION 2: IMPLEMENTASI & POLIMORFISME ---
+class Programmer extends Pekerja {
+  Programmer(String nama) : super(nama);
+  @override
+  void bekerja() => print("Programmer coding...");
+}
 
-    <h3>3. MathUtils (Static Methods)</h3>
-    <p>Kelas utilitas yang memungkinkan pemanggilan fungsi matematika secara langsung.</p>
-</div>
+class Dokter extends Pekerja {
+  Dokter(String nama) : super(nama);
+  @override
+  void bekerja() => print("Dokter memeriksa pasien...");
+}
 
+class Guru extends Pekerja {
+  Guru(String nama) : super(nama);
+  @override
+  void bekerja() => print("Guru sedang mengajar...");
+}
+
+// --- SECTION 3: MULTIPLE INHERITANCE (IMPLEMENTS) ---
+class Komputer { void booting() => print("Booting..."); }
+class Kamera { void ambilFoto() => print("Snap!"); }
+class Telepon { void panggil() => print("Calling..."); }
+
+class Tablet implements Komputer, Kamera, Telepon {
+  @override void booting() => print("Tablet Booting...");
+  @override void ambilFoto() => print("Tablet Snap!");
+  @override void panggil() => print("Tablet Calling...");
+}
+
+// --- SECTION 4: UTILITAS MATEMATIKA ---
+class MathUtils {
+  static int faktorial(int n) => (n <= 1) ? 1 : n * faktorial(n - 1);
+  static bool isPrima(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i <= sqrt(n); i++) {
+      if (n % i == 0) return false;
+    }
+    return true;
+  }
+}
+        <!DOCTYPE html>
+<html>
+<body>
+    <h1>Tugas OOP</h1>
+    <iframe src="https://dartpad.dev/embed-dart.html?id=https://gist.github.com/5c0e154dd50af4a9ac856908061291bc style="width:100%; height:500px;"></iframe>
 </body>
 </html>
+
+// --- MAIN (Visual Output) ---
+void main() {
+  print("--- LATIHAN OOP SERLIN SELVIANA GIAY ---");
+  
+  // Demo Polimorfisme
+  List<Pekerja> tim = [Programmer("Andi"), Dokter("Budi"), Guru("Citra")];
+  tim.forEach((p) => p.bekerja());
+  
+  // Demo Tablet
+  Tablet myTab = Tablet();
+  myTab.booting();
+}
