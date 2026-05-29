@@ -1,0 +1,68 @@
+import 'dart:math';
+
+// --- SECTION 1: KONSEP KELAS ABSTRAK ---
+abstract class Pekerja {
+  String nama;
+  Pekerja(this.nama);
+  
+  // Abstract method (Logic ditentukan di subclass)
+  void bekerja(); 
+
+  // Non-abstract method
+  void info() => print("$nama adalah seorang pekerja.");
+}
+
+// --- SECTION 2: IMPLEMENTASI & POLIMORFISME ---
+class Programmer extends Pekerja {
+  Programmer(String nama) : super(nama);
+  @override
+  void bekerja() => print("Programmer coding...");
+}
+
+class Dokter extends Pekerja {
+  Dokter(String nama) : super(nama);
+  @override
+  void bekerja() => print("Dokter memeriksa pasien...");
+}
+
+class Guru extends Pekerja {
+  Guru(String nama) : super(nama);
+  @override
+  void bekerja() => print("Guru sedang mengajar...");
+}
+
+// --- SECTION 3: MULTIPLE INHERITANCE (IMPLEMENTS) ---
+class Komputer { void booting() => print("Booting..."); }
+class Kamera { void ambilFoto() => print("Snap!"); }
+class Telepon { void panggil() => print("Calling..."); }
+
+class Tablet implements Komputer, Kamera, Telepon {
+  @override void booting() => print("Tablet Booting...");
+  @override void ambilFoto() => print("Tablet Snap!");
+  @override void panggil() => print("Tablet Calling...");
+}
+
+// --- SECTION 4: UTILITAS MATEMATIKA ---
+class MathUtils {
+  static int faktorial(int n) => (n <= 1) ? 1 : n * faktorial(n - 1);
+  static bool isPrima(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i <= sqrt(n); i++) {
+      if (n % i == 0) return false;
+    }
+    return true;
+  }
+}
+
+// --- MAIN (Visual Output) ---
+void main() {
+  print("--- LATIHAN OOP SERLIN SELVIANA GIAY ---");
+  
+  // Demo Polimorfisme
+  List<Pekerja> tim = [Programmer("Andi"), Dokter("Budi"), Guru("Citra")];
+  tim.forEach((p) => p.bekerja());
+  
+  // Demo Tablet
+  Tablet myTab = Tablet();
+  myTab.booting();
+}
